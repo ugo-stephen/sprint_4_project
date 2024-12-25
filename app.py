@@ -90,24 +90,37 @@ st.plotly_chart(df_histogram)
 
 
 st.header("Car Price and Days Listed Histogram")
-df_histogram = px.histogram(data_frame=df, nbins=50, title='Price of Car and Days Posted', 
+df_histogram = px.histogram(data_frame=df, nbins=50, 
                             x='Days Listed', color='Vehicle Type', width=900, height=500)
 
 # Step 3: Add a checkbox to filter the histogram
-filter_days = st.checkbox("Filter vehicles listed for less than 30 Days")
+filter_days = st.checkbox("Filter vehicles listed in the last 30 days")
 
 if filter_days:
-    # Filter the DataFrame for vehicles listed less than 60 days
+    # Filter the DataFrame for vehicles listed less than 30 days
     filtered_df = df[df['Days Listed'] < 30]
     df_histogram = px.histogram(data_frame=filtered_df, nbins=50, 
                                 title='Price of Car and Days Posted (Listed < 30 Days)', 
                                 x='Days Listed', color='Vehicle Type', width=900, height=500)
     st.write(f"Filtered data contains {len(filtered_df)} vehicles.")
 else:
-    st.write("Displaying all vehicles.")
+    st.write("Price and Days Listed: Car Analysis")
 
 # Step 4: Display the histogram
 st.plotly_chart(df_histogram, key='historgam_all')
+
+
+#A slider allows more flexibility in choosing the number of days
+filter_days = st.slider('Select the maximum days listed to filter vehicles', min_value=1, max_value=100, value=30)
+
+# Display the state of slider
+st.write('Selected days:', filter_days)
+
+# Filter the DataFrame based on user selection
+filtered_df = df[df['Days Listed'] < filter_days]
+
+# Display the filtered DataFrame
+st.write('Filtered Vehicles:', filtered_df)
 
 
 
