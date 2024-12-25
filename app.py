@@ -94,13 +94,13 @@ df_histogram = px.histogram(data_frame=df, nbins=50, title='Price of Car and Day
                             x='Days Listed', color='Vehicle Type', width=900, height=500)
 
 # Step 3: Add a checkbox to filter the histogram
-filter_days = st.checkbox("Filter vehicles listed for fewer than 30 days")
+filter_days = st.checkbox("Filter vehicles listed for less than 30 Days")
 
 if filter_days:
     # Filter the DataFrame for vehicles listed less than 60 days
-    filtered_df = df[df['Days Listed'] < 60]
+    filtered_df = df[df['Days Listed'] < 30]
     df_histogram = px.histogram(data_frame=filtered_df, nbins=50, 
-                                title='Price of Car and Days Posted (Listed < 60 Days)', 
+                                title='Price of Car and Days Posted (Listed < 30 Days)', 
                                 x='Days Listed', color='Vehicle Type', width=900, height=500)
     st.write(f"Filtered data contains {len(filtered_df)} vehicles.")
 else:
@@ -108,6 +108,7 @@ else:
 
 # Step 4: Display the histogram
 st.plotly_chart(df_histogram, key='historgam_all')
+
 
 
 
