@@ -97,7 +97,6 @@ df_histogram = px.histogram(data_frame=df, nbins=50,
 filter_days = st.checkbox("Filter vehicles listed in the last 30 days")
 
 if filter_days:
-    # Filter the DataFrame for vehicles listed less than 30 days
     filtered_df = df[df['Days Listed'] < 30]
     df_histogram = px.histogram(data_frame=filtered_df, nbins=50, 
                                 title='Price of Car and Days Posted (Listed < 30 Days)', 
